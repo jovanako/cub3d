@@ -6,9 +6,12 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 14:37:40 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/08 15:27:54 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/10 22:05:42 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef CUB3D_H
+# define CUB3D_H
 
 typedef struct s_texture
 {
@@ -63,3 +66,4 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 }	t_game;
+#endif
