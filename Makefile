@@ -6,9 +6,13 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/10 20:21:28 by jkovacev          #+#    #+#              #
-#    Updated: 2026/02/10 20:56:16 by jkovacev         ###   ########.fr        #
+#    Updated: 2026/02/11 11:30:04 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+GREEN = \033[0;32m
+BLUE  = \033[0;34m
+RESET = \033[0m
 
 NAME		= cub3d
 CC			= cc
@@ -27,7 +31,7 @@ SRCS		= main.c \
 			  $(PARSE_DIR)/error_handling.c \
 			  $(PARSE_DIR)/parsing.c \
 			  $(PARSE_DIR)/path_parsing.c \
-			  $(PARSE_DIR)/tex_parsing.c \
+			  $(PARSE_DIR)/tex_parsing.c
 
 OBJS		= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 
@@ -36,23 +40,29 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-		$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+		@echo "$(BLUE)Linking $(NAME)...$(RESET)"
+		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+		@echo "$(GREEN)Build successful!$(RESET)"
 
 $(LIBFT):
-		@make -C $(LIBFT_DIR)
+		@echo "$(BLUE)Building Libft...$(RESET)"
+		@make -C $(LIBFT_DIR) bonus --no-print-directory
 
 $(OBJ_DIR)/%.o: %.c
 		@mkdir -p $(dir $@)
-		$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+		@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-		@make clean -C $(LIBFT_DIR)
-		rm -rf $(OBJ_DIR)
+		@echo "$(BLUE)Cleaning cub3d objects...$(RESET)"
+		@rm -rf $(OBJ_DIR)
+		@make clean -C $(LIBFT_DIR) --no-print-directory
 
-fclean: clean
-		@make fclean -C $(LIBFT_DIR)
-		rm -f $(NAME)
+fclean:
+		@echo "$(BLUE)Deep cleaning project...$(RESET)"
+		@rm -rf $(OBJ_DIR)
+		@rm -f $(NAME)
+		@make fclean -C $(LIBFT_DIR) --no-print-directory
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

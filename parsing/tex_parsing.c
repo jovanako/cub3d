@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:50:05 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/10 22:09:29 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/11 21:52:08 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ int	parse_east_tex(char *line, t_config *config)
 		return (0);
 	}
 	start = get_path(direction);
-	config->west.path = ft_strdup(start);
-	if (!config->west.path)
+	config->east.path = ft_strdup(start);
+	if (!config->east.path)
 		print_error_and_return("Malloc failed\n", 0);
 	return (1);
 }
