@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 16:29:01 by jkovacev          #+#    #+#             */
-/*   Updated: 2024/11/28 17:13:27 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 18:30:18 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ static char	*extract_word(char const *s, char c,
 
 	start = (char *)s;
 	while (*start && *start == c)
-	{
 		start++;
-	}
 	end = ft_strchr(start, c);
 	if (end == NULL)
 		end = start + ft_strlen(start);
 	result[res_position] = ft_substr(s, start - s, end - start);
+	if (!result[res_position])
+		return (NULL);
 	return (end);
 }
 
@@ -68,13 +68,15 @@ char	**ft_split(char const *s, char c)
 	word_count = count_words(s, c);
 	result = (char **)malloc((word_count + 1) * sizeof(char *));
 	if (!result)
-		return (0);
-	result[word_count] = (void *)0;
+		return (ft_print_error("Malloc failed\n"), NULL);
+	result[word_count] = NULL;
 	i = 0;
 	current = (char *)s;
 	while (i < word_count)
 	{
 		current = extract_word(current, c, result, i);
+		if (!current)
+			return (NULL);
 		if (result[i] == NULL)
 		{
 			free_result(result);

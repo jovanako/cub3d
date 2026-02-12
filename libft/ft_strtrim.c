@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:33:50 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 16:57:44 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 18:24:36 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 		end--;
 	copy = (char *)malloc((end - start + 1) * sizeof(char));
 	if (!copy)
+	{
+		ft_print_error("Malloc failed\n");
 		return (NULL);
+	}
 	return (generate_trimmed_copy(s1, copy, start, end - start));
 }

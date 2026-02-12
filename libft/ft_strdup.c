@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:47:37 by jkovacev          #+#    #+#             */
-/*   Updated: 2024/11/22 11:15:59 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 18:20:14 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ char	*ft_strdup(const char *s)
 		dup = copy_string(dup, s, s_len);
 		return (dup);
 	}
-	return ((void *)0);
+	ft_print_error("Failed malloc\n");
+	return (NULL);
 }

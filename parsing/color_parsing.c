@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:20:13 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 18:01:04 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 18:30:41 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ static int	get_rgb_val(char *line, t_rgb *rgb)
 
 	i = 0;
 	trimmed_line = ft_strtrim(line + 1, " "); 
-	if (!trimmed_line) // add error handling to libft
+	if (!trimmed_line)
 		return(0);
-	rgb_val_arr = ft_split(trimmed_line, ','); // error handling
+	rgb_val_arr = ft_split(trimmed_line, ',');
 	if (array_size(rgb_val_arr) != 3)
 		return(print_error_and_return("Invalid input for color\n", 0));
 	while (i < 3)
 	{
 		temp = ft_strtrim(rgb_val_arr[i], " ");
 		if (!temp)
-			return (0); // error handling
+			return (0);
 		val = ft_atoi(temp);
 		if (i == 0)
 			rgb->r = val;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 17:08:13 by jkovacev          #+#    #+#             */
-/*   Updated: 2024/11/18 12:53:19 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 18:25:43 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	s_len = ft_strlen(s);
 	substring_size = calculate_substring_size(start, s_len, len);
-	substr = (char *) malloc (substring_size * sizeof(char) + 1);
+	substr = (char *)malloc(substring_size * sizeof(char) + 1);
 	if (!substr)
+	{
+		ft_print_error("Malloc failed\n");
 		return (0);
+	}
 	i = 0;
 	j = start;
 	while ((j < s_len) && (j < (start + len)))

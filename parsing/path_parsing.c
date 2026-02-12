@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:45:49 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 17:54:56 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 18:18:38 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	parse_line(char *line, t_config *config)
 	trimmed_line = trim_nl(line);
 	if (!trimmed_line)
 		return (0);
-	if (ft_strchr(trimmed_line, 'N')) // include bool flag if some element not found
+	if (ft_strchr(trimmed_line, 'N'))
 		return (parse_north_tex(trimmed_line, config));
 	if (ft_strchr(trimmed_line, 'S'))
 		return (parse_south_tex(trimmed_line, config));
