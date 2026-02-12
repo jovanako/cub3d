@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/10 20:21:28 by jkovacev          #+#    #+#              #
-#    Updated: 2026/02/12 17:11:12 by jkovacev         ###   ########.fr        #
+#    Updated: 2026/02/12 20:00:40 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ BLUE  = \033[0;34m
 RESET = \033[0m
 
 NAME		= cub3d
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CC			= gcc
+CFLAGS		= -g -Wall -Wextra -Werror
 
 LIBFT_DIR	= libft
 GNL_DIR		= get_next_line
@@ -33,7 +33,9 @@ SRCS		= main.c \
 			  $(PARSE_DIR)/path_parsing.c \
 			  $(PARSE_DIR)/tex_parsing.c \
 			  $(PARSE_DIR)/color_parsing.c \
-			  $(PARSE_DIR)/validation.c
+			  $(PARSE_DIR)/rgb_parsing.c \
+			  $(PARSE_DIR)/validation.c \
+			  $(PARSE_DIR)/clean_up.c
 
 OBJS		= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:47:37 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 18:20:14 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 20:40:46 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,15 @@
 
 static char	*copy_string(char *dst, const char *src, size_t size)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	if (size == ft_strlen(src))
+	if (i < size)
 	{
-		while (size > 0 && src[i] != '\0')
-		{
-			dst[i] = src[i];
-			i++;
-			size--;
-		}
-		dst[i] = '\0';
+		dst[i] = src[i];
+		i++;
 	}
+	dst[i] = '\0';
 	return (dst);
 }
 

@@ -1,46 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_parsing.c                                     :+:      :+:    :+:   */
+/*   clean_up.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 21:45:49 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 20:37:49 by jkovacev         ###   ########.fr       */
+/*   Created: 2026/02/12 19:48:43 by jkovacev          #+#    #+#             */
+/*   Updated: 2026/02/12 20:19:12 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	is_valid_path(char *s)
+int	rgb_cleanup(t_rgb *rgb)
 {
-	int	fd;
-
-	fd = open(s, O_RDONLY);
-	if (fd == -1)
-		return (0);
-	close(fd);
-	return (1);
+	if (rgb)
+		free(rgb);
+	return (0);
 }
 
-char	*get_path(char *line)
+void	rgb_arr_cleanup(char **rgb_arr)
 {
-	char	*temp;
-	char	*path;
+	int	i;
 
-	temp = ft_substr(line, 2, ft_strlen(line) - 2);
-	if (!temp)
-		return (NULL);
-	path = ft_strtrim(temp, " ");
-	free(temp);
-	if (!path)
-		return (NULL);
-	if (!is_valid_path(path))
+	i = 0;
+	if (!rgb_arr)
+		return ;
+	while (rgb_arr[i])
 	{
-		free(path);
-		return (print_error("Error opening file\n"), NULL);
+		free(rgb_arr[i]);
+		i++;
 	}
-	return (path);
+	free(rgb_arr);
 }
 
-
+void	free_config(t_config *config)
+{
+	if (!config)
+		return ;
+	free(config->north.path);
+	free(config->south.path);
+	free(config->west.path);
+	free(config->east.path);
+	free(config);
+}

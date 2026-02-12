@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:37:26 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 17:47:55 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 20:59:46 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,10 @@ int	has_valid_chars(char *line)
 		i++;
 	}
 	return (1);
+}
+
+int	is_path(char *s)
+{
+	return (!ft_strncmp(s, "NO", 2) || !ft_strncmp(s, "SO", 2)
+		|| !ft_strncmp(s, "WE", 2) || !ft_strncmp(s, "EA", 2));
 }
