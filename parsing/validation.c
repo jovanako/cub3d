@@ -1,26 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/09 18:59:28 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 10:28:30 by jkovacev         ###   ########.fr       */
+/*   Created: 2026/02/12 16:37:26 by jkovacev          #+#    #+#             */
+/*   Updated: 2026/02/12 17:47:55 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-int	print_error_and_return(char *error, int ret)
+int	array_size(char **arr)
 {
-	write(2, "Error\n", 6);
-	write(2, error, ft_strlen(error));
-	return (ret);
+	int	len;
+
+	len = 0;
+	while (arr[len])
+		len++;
+	return (len);
 }
 
-void	invalid_tex()
+int	in_range(int n)
 {
-	write(2, "Error\n", 6);
-	write(2, "Invalid input for texture path\n", 31);
+	return (n >= 0 && n <= 255);
+}
+
+int	has_valid_chars(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != 'F' && line[i] != 'C' && line[i] != ' '
+			&& line[i] != ',' && !ft_isdigit(line[i]))
+		{
+			print_error("Invalid input for color\n");	
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }

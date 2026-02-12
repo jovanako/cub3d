@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/10 20:21:28 by jkovacev          #+#    #+#              #
-#    Updated: 2026/02/11 11:30:04 by jkovacev         ###   ########.fr        #
+#    Updated: 2026/02/12 17:11:12 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ SRCS		= main.c \
 			  $(PARSE_DIR)/error_handling.c \
 			  $(PARSE_DIR)/parsing.c \
 			  $(PARSE_DIR)/path_parsing.c \
-			  $(PARSE_DIR)/tex_parsing.c
+			  $(PARSE_DIR)/tex_parsing.c \
+			  $(PARSE_DIR)/color_parsing.c \
+			  $(PARSE_DIR)/validation.c
 
 OBJS		= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 

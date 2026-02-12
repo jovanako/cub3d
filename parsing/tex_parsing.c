@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:50:05 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/11 21:52:08 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 10:27:43 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ int	parse_north_tex(char *line, t_config *config)
 	
 	direction = ft_strchr(line, 'N');
 	if (ft_strncmp(direction, "NO ", 3))
-	{
-		invalid_tex();
-		return (0);
-	}
+		return (invalid_tex(), 0);
 	start = get_path(direction);
 	config->north.path = ft_strdup(start);
 	if (!config->north.path)
@@ -37,10 +34,7 @@ int	parse_south_tex(char *line, t_config *config)
 	
 	direction = ft_strchr(line, 'S');
 	if (ft_strncmp(direction, "SO ", 3))
-	{
-		invalid_tex();
-		return (0);
-	}
+		return (invalid_tex(), 0);
 	start = get_path(direction);
 	config->south.path = ft_strdup(start);
 	if (!config->south.path)

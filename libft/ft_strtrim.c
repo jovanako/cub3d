@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 15:33:50 by jkovacev          #+#    #+#             */
-/*   Updated: 2024/11/22 16:17:22 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:57:44 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	is_equal(char c, char const *set)
 {
-	unsigned int	i;
+	size_t	i;
 
 	i = 0;
 	while (set[i])
@@ -46,26 +46,18 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*copy;
 	size_t	end;
-	size_t	s1_len;
 	size_t	start;
-	size_t	copy_size;
 
-	if (!s1)
-		return (0);
-	s1_len = ft_strlen(s1);
+	if (!s1 || !set)
+		return (NULL);
 	start = 0;
-	end = s1_len - 1;
+	end = ft_strlen(s1);
 	while (s1[start] && is_equal(s1[start], set))
-	{
 		start++;
-	}
-	while ((end > start) && is_equal(s1[end], set))
-	{
+	while ((end > start) && is_equal(s1[end - 1], set))
 		end--;
-	}
-	copy_size = end - start + 1;
-	copy = (char *) malloc (copy_size * sizeof(char) + 1);
+	copy = (char *)malloc((end - start + 1) * sizeof(char));
 	if (!copy)
-		return ((char *)0);
-	return (generate_trimmed_copy(s1, copy, start, copy_size));
+		return (NULL);
+	return (generate_trimmed_copy(s1, copy, start, end - start));
 }

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 21:45:49 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/11 21:49:52 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/12 17:54:56 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*trim_nl(char *s)
 	if (!result)
 		return (print_error("Malloc failed\n"), NULL);
 	i = 0;
-	while (*s != '\n')
+	while (*s && *s != '\n')
 	{
 		result[i] = *s;
 		i++;
@@ -60,12 +60,16 @@ char	*get_path(char *direction)
 	return (start);
 }
 
-int	parse_any_path(char *line, t_config *config)
+int	parse_line(char *line, t_config *config)
 {	
 	char	*trimmed_line;
 
+	if (line[0] == '\n' || line[0] == '\0')
+		return (1);
 	trimmed_line = trim_nl(line);
-	if (ft_strchr(trimmed_line, 'N'))
+	if (!trimmed_line)
+		return (0);
+	if (ft_strchr(trimmed_line, 'N')) // include bool flag if some element not found
 		return (parse_north_tex(trimmed_line, config));
 	if (ft_strchr(trimmed_line, 'S'))
 		return (parse_south_tex(trimmed_line, config));
@@ -73,5 +77,9 @@ int	parse_any_path(char *line, t_config *config)
 		return (parse_west_tex(trimmed_line, config));
 	if (ft_strchr(trimmed_line, 'E'))
 		return (parse_east_tex(trimmed_line, config));
-	return (print_error_and_return("Path input missing\n", 0));
+	if (ft_strchr(trimmed_line, 'F'))
+		return (parse_floor_color(trimmed_line, config));
+	if (ft_strchr(trimmed_line, 'C'))
+		return (parse_ceiling_color(trimmed_line, config));
+	return (print_error_and_return("Invalid input\n", 0));
 }
