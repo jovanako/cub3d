@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/10 20:21:28 by jkovacev          #+#    #+#              #
-#    Updated: 2026/02/12 20:00:40 by jkovacev         ###   ########.fr        #
+#    Updated: 2026/02/14 15:20:56 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,18 @@ RESET = \033[0m
 NAME		= cub3d
 CC			= gcc
 CFLAGS		= -g -Wall -Wextra -Werror
+MLX_FLAGS	= -L$(MLX_DIR) -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz
 
 LIBFT_DIR	= libft
+MLX_DIR		= mlx_linux
 GNL_DIR		= get_next_line
 PARSE_DIR	= parsing
 OBJ_DIR		= obj
 
-INCLUDES	= -I. -I$(LIBFT_DIR) -I$(GNL_DIR) -I$(PARSE_DIR)
+INCLUDES	= -I. -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(GNL_DIR) -I$(PARSE_DIR)
+
+LIBFT		= $(LIBFT_DIR)/libft.a
+MLX			= $(MLX_DIR)/libmlx.a
 
 SRCS		= main.c \
 			  $(GNL_DIR)/get_next_line.c \
@@ -34,23 +39,26 @@ SRCS		= main.c \
 			  $(PARSE_DIR)/tex_parsing.c \
 			  $(PARSE_DIR)/color_parsing.c \
 			  $(PARSE_DIR)/rgb_parsing.c \
+			  $(PARSE_DIR)/map_parsing.c \
 			  $(PARSE_DIR)/validation.c \
 			  $(PARSE_DIR)/clean_up.c
 
 OBJS		= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 
-LIBFT		= $(LIBFT_DIR)/libft.a
-
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
 		@echo "$(BLUE)Linking $(NAME)...$(RESET)"
-		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+		@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 		@echo "$(GREEN)Build successful!$(RESET)"
 
 $(LIBFT):
 		@echo "$(BLUE)Building Libft...$(RESET)"
 		@make -C $(LIBFT_DIR) bonus --no-print-directory
+	
+$(MLX):
+		@echo "$(BLUE)Building MLX...$(RESET)"
+		@make -C $(MLX_DIR) --no-print-directory
 
 $(OBJ_DIR)/%.o: %.c
 		@mkdir -p $(dir $@)
@@ -60,6 +68,7 @@ clean:
 		@echo "$(BLUE)Cleaning cub3d objects...$(RESET)"
 		@rm -rf $(OBJ_DIR)
 		@make clean -C $(LIBFT_DIR) --no-print-directory
+		@make clean -C $(MLX_DIR) --no-print-directory
 
 fclean:
 		@echo "$(BLUE)Deep cleaning project...$(RESET)"

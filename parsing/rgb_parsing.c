@@ -6,13 +6,28 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 20:00:15 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 20:48:45 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 13:04:12 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-char	**get_rgb_arr(char *line, char **rgb_arr)
+static void	rgb_arr_cleanup(char **rgb_arr)
+{
+	int	i;
+
+	i = 0;
+	if (!rgb_arr)
+		return ;
+	while (rgb_arr[i])
+	{
+		free(rgb_arr[i]);
+		i++;
+	}
+	free(rgb_arr);
+}
+
+static char	**get_rgb_arr(char *line, char **rgb_arr)
 {
 	char	*trimmed_line;
 	
@@ -29,7 +44,7 @@ char	**get_rgb_arr(char *line, char **rgb_arr)
 	return (rgb_arr);
 }
 
-void	assign_rgb(t_rgb *rgb, int i, int val)
+static void	assign_rgb(t_rgb *rgb, int i, int val)
 {
 	if (i == 0)
 		rgb->r = val;
@@ -37,6 +52,12 @@ void	assign_rgb(t_rgb *rgb, int i, int val)
 		rgb->g = val;
 	else if (i == 2)
 		rgb->b = val;
+}
+
+static int	clean_and_return(char **rgb_arr)
+{
+	rgb_arr_cleanup(rgb_arr);
+	return(print_error_and_return("Invalid input for color\n", 0));
 }
 
 int	get_rgb_val(char *line, t_rgb *rgb)
@@ -52,10 +73,7 @@ int	get_rgb_val(char *line, t_rgb *rgb)
 	if (!rgb_arr)
 		return (0);
 	if (array_size(rgb_arr) != 3)
-	{
-		rgb_arr_cleanup(rgb_arr);
-		return(print_error_and_return("Invalid input for color\n", 0));
-	}
+		return (clean_and_return(rgb_arr));
 	while (i < 3)
 	{
 		temp = ft_strtrim(rgb_arr[i], " ");

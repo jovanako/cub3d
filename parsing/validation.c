@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:37:26 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 20:59:46 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/13 10:27:35 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,16 @@ int	is_path(char *s)
 {
 	return (!ft_strncmp(s, "NO", 2) || !ft_strncmp(s, "SO", 2)
 		|| !ft_strncmp(s, "WE", 2) || !ft_strncmp(s, "EA", 2));
+}
+
+int	has_config(t_config *config)
+{
+	if (config)
+	{
+		return (config->north.path && config->south.path
+				&& config->west.path && config->east.path
+				&& config->floor_color &&config->ceiling_color);
+	}
+	print_error("Texture values missing\n");
+	return (0);
 }
