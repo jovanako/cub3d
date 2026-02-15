@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 19:00:49 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/09 19:43:10 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 22:46:04 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	fill_line_buf(char **line_buf, char *read_buf, int fd)
 		bytes_read = read(fd, read_buf, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
-			print_error("Read failed\n");
+			gnl_print_error("Read failed\n");
 			return (1);
 		}
 		if (bytes_read == 0)
@@ -87,13 +87,13 @@ char	*get_next_line(int fd)
 	{
 		line_buf = malloc(1 * sizeof(char));
 		if (!line_buf)
-			return (print_error("Malloc failed\n"), NULL);
+			return (gnl_print_error("Malloc failed\n"), NULL);
 		line_buf[0] = '\0';
 	}
 	read_buf = malloc(BUFFER_SIZE * sizeof(char));
 	if (read_buf == NULL)
 	{
-		print_error("Malloc failed\n");
+		gnl_print_error("Malloc failed\n");
 		return (clean_up(&line_buf));
 	}
 	if (fill_line_buf(&line_buf, read_buf, fd))

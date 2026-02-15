@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 19:01:23 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/10 21:51:07 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 22:46:34 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ char	*get_next_line(int fd);
 int		find_new_line(char *s);
 void	append(char **line_buf, char *read_buf, int bytes_read);
 char	*my_substr(char **s, int start, int len);
-void	print_error(char *error);
+void	gnl_print_error(char *error);
 
 #endif

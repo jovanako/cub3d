@@ -6,13 +6,12 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 20:47:23 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 22:30:07 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 22:49:40 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 
-// TEST function
 // void	print_config_elements(t_config *config)
 // {
 // 	printf("---Config---\n");
@@ -33,9 +32,10 @@
 // void	print_game(t_game *game)
 // {
 // 	print_config_elements(&game->config);
-// 	printf("---Map---\n");
+// 	printf("\n---Map---\n");
 // 	print_arr(game->map.grid, game->map.height);
 // 	printf("map height: %d\nmap width: %d\n", game->map.height, game->map.width);
+// 	printf("\n---Player---\n");
 // 	printf("player x: %f\nplayer y: %f\n", game->player.x, game->player.y);
 // 	printf("player dir x: %f\nplayer dir y: %f\n", game->player.dir_x, game->player.dir_y);
 // 	printf("player plane x: %f\nplayer plane y: %f\n", game->player.plane_x, game->player.plane_y);
