@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 13:26:28 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 15:11:23 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 22:25:19 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,13 @@ int is_map(char *line)
 		return (0);
 	}
 	return (0);
+}
+
+void	print_invalid_char(char c)
+{
+	print_error("Invalid map character: ");
+	ft_putchar_fd('\'', 2);
+	ft_putchar_fd(c, 2);
+	ft_putchar_fd('\'', 2);
+	write(2, "\n", 1);
 }

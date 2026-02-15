@@ -6,24 +6,12 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 19:08:15 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 15:21:10 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 22:06:11 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "cub3d.h"
-
-// TEST function
-// void	print_config_elements(t_config *config)
-// {
-// 	printf("---Config---\n");
-// 	printf("north path: %s\n", config->north.path);
-// 	printf("south path: %s\n", config->south.path);
-// 	printf("east path: %s\n", config->east.path);
-// 	printf("west path: %s\n", config->west.path);
-// 	printf("floor color: %#x\n", config->floor_color);
-// 	printf("ceiling color: %#x\n", config->ceiling_color);
-// }
 
 static int	parse_tex(char *line, t_config *config)
 {
@@ -91,7 +79,8 @@ t_game	*parse_file(int fd, t_game *game)
 		free(line);
 		line = get_next_line(fd);
 	}
-	// TEST
-	// print_config_elements(config);
+	game->map.width = calculate_map_width(game->map.grid);
+	if (!map_validation(&game->map))
+		return (NULL);
 	return (game);
 }

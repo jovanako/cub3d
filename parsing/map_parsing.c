@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/13 10:17:14 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 15:24:20 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 20:20:56 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,28 @@ int	calculate_map_height(char *arg, t_game *game)
 	return (1);
 }
 
-static int	count_grid_rows(char **grid)
+int	calculate_map_width(char **grid)
+{
+	int	i;
+	int	len;
+	int	width;
+
+	i = 0;
+	len = 0;
+	width = 0;
+	if (!grid)
+		return (0);
+	while (grid[i])
+	{
+		len = (int)ft_strlen(grid[i]);
+		if (len > width)
+			width = len;
+		i++;
+	}
+	return (width);
+}
+
+static int	count_current_height(char **grid)
 {
 	int	count;
 
@@ -50,14 +71,13 @@ static int	count_grid_rows(char **grid)
 
 int	parse_grid(char *line, t_map *map)
 {
-	int		rows;
+	int		row;
 	char	*clean_line;
 
-	rows = count_grid_rows(map->grid);
+	row = count_current_height(map->grid);
 	clean_line = ft_strtrim(line, "\n");
 	if (!clean_line)
 		return (0);
-	map->grid[rows] = clean_line;
-	// printf("grid[%d]: [%s]\n", rows, map->grid[rows]);
+	map->grid[row] = clean_line;
 	return (1);
 }
