@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_up.c                                         :+:      :+:    :+:   */
+/*   game_cleanup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 19:48:43 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 14:17:12 by jkovacev         ###   ########.fr       */
+/*   Created: 2026/02/15 14:16:57 by jkovacev          #+#    #+#             */
+/*   Updated: 2026/02/15 14:20:05 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "mlx.h"
 
-int	rgb_cleanup(t_rgb *rgb)
-{
-	if (rgb)
-		free(rgb);
-	return (0);
-}
-
-void	free_config(t_config *config)
+static void	cleanup_config(t_config *config)
 {
 	if (!config)
 		return ;
@@ -28,10 +21,9 @@ void	free_config(t_config *config)
 	free(config->south.path);
 	free(config->west.path);
 	free(config->east.path);
-	free(config);
 }
 
-void	free_map(t_map *map)
+static void	cleanup_map(t_map *map)
 {
 	int	i;
 
@@ -46,5 +38,15 @@ void	free_map(t_map *map)
 		i++;
 	}
 	free(map->grid);
-	free(map);
+}
+
+void	deep_free_game(t_game *game)
+{
+	if (!game)
+		return ;
+	cleanup_config(&game->config);
+	cleanup_map(&game->map);
+	if (game->mlx && game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	free(game);
 }

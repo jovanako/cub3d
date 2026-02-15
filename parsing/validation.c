@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:37:26 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/13 10:27:35 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 15:12:14 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ int	has_valid_chars(char *line)
 
 int	is_path(char *s)
 {
-	return (!ft_strncmp(s, "NO", 2) || !ft_strncmp(s, "SO", 2)
-		|| !ft_strncmp(s, "WE", 2) || !ft_strncmp(s, "EA", 2));
+	char	*start;
+
+	start = skip_leading_ws(s);
+	return (!ft_strncmp(start, "NO", 2) || !ft_strncmp(start, "SO", 2)
+		|| !ft_strncmp(start, "WE", 2) || !ft_strncmp(start, "EA", 2));
 }
 
 int	has_config(t_config *config)

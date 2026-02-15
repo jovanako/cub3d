@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 19:00:46 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 13:01:13 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 15:11:42 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	invalid_tex();
 // Texture parsing
 char	*get_path(char *found);
 int		is_path(char *s);
+char	*skip_leading_ws(char *s);
 int		parse_north_tex(char *line, t_config *config);
 int		parse_south_tex(char *line, t_config *config);
 int		parse_west_tex(char *line, t_config *config);
@@ -60,6 +61,8 @@ int		rgb_cleanup(t_rgb *rgb);
 
 // Map parsing
 int		has_config(t_config *config);
+int 	is_map(char *line);
+int		calculate_map_height(char *arg, t_game *game);
 int		parse_grid(char *line, t_map *map);
 void	free_config(t_config *config);
 void	free_map(t_map *map);

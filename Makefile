@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/10 20:21:28 by jkovacev          #+#    #+#              #
-#    Updated: 2026/02/14 15:20:56 by jkovacev         ###   ########.fr        #
+#    Updated: 2026/02/15 14:19:28 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,9 @@ SRCS		= main.c \
 			  $(PARSE_DIR)/color_parsing.c \
 			  $(PARSE_DIR)/rgb_parsing.c \
 			  $(PARSE_DIR)/map_parsing.c \
+			  $(PARSE_DIR)/map_helpers.c \
 			  $(PARSE_DIR)/validation.c \
+			  $(PARSE_DIR)/game_cleanup.c \
 			  $(PARSE_DIR)/clean_up.c
 
 OBJS		= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))

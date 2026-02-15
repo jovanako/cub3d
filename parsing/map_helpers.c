@@ -1,50 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_up.c                                         :+:      :+:    :+:   */
+/*   map_helpers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 19:48:43 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 14:17:12 by jkovacev         ###   ########.fr       */
+/*   Created: 2026/02/15 13:26:28 by jkovacev          #+#    #+#             */
+/*   Updated: 2026/02/15 15:11:23 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include "mlx.h"
 
-int	rgb_cleanup(t_rgb *rgb)
+char	*skip_leading_ws(char *s)
 {
-	if (rgb)
-		free(rgb);
-	return (0);
+	while (*s == ' ')
+		s++;
+	return (s);
 }
 
-void	free_config(t_config *config)
+int is_map(char *line)
 {
-	if (!config)
-		return ;
-	free(config->north.path);
-	free(config->south.path);
-	free(config->west.path);
-	free(config->east.path);
-	free(config);
-}
-
-void	free_map(t_map *map)
-{
-	int	i;
+	int		i;
 
 	i = 0;
-	if (!map)
-		return ;
-	if (!map->grid)
-		return ;
-	while (map->grid[i])
-	{
-		free(map->grid[i]);
+	while (line[i] == ' ')
 		i++;
+	if (line[i])
+	{
+		if ((line[i] == 'N' && line[i + 1] == 'O')
+			|| (line[i] == 'S' && line[i + 1] == 'O')
+			|| (line[i] == 'W' && line[i + 1] == 'E')
+			|| (line[i] == 'E' && line[i + 1] == 'A')
+			|| line[i] == 'F' || line[i] == 'C')
+			return (0);
+		if (line[i] == '1')
+			return (1);
+		return (0);
 	}
-	free(map->grid);
-	free(map);
+	return (0);
 }

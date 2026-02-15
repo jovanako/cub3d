@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 19:08:15 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/14 18:02:27 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 15:21:10 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,30 @@
 
 static int	parse_tex(char *line, t_config *config)
 {
-	if (!ft_strncmp(line, "NO", 2))
-		return (parse_north_tex(line, config));
-	if (!ft_strncmp(line, "SO", 2))
-		return (parse_south_tex(line, config));
-	if (!ft_strncmp(line, "WE", 2))
-		return (parse_west_tex(line, config));
-	if (!ft_strncmp(line, "EA", 2))
-		return (parse_east_tex(line, config));
+	char	*start;
+
+	start = skip_leading_ws(line);
+	if (!ft_strncmp(start, "NO", 2))
+		return (parse_north_tex(start, config));
+	if (!ft_strncmp(start, "SO", 2))
+		return (parse_south_tex(start, config));
+	if (!ft_strncmp(start, "WE", 2))
+		return (parse_west_tex(start, config));
+	if (!ft_strncmp(start, "EA", 2))
+		return (parse_east_tex(start, config));
 	return (0);
 }
 
 static int	parse_color(char *line, t_config *config)
 {
-	if (line[0] == 'F')
-		return (parse_floor_color(line, config));
-	if (line[0] == 'C')
-		return (parse_ceiling_color(line, config));
+	char	*start;
+
+	start = skip_leading_ws(line);
+	if (start[0] == 'F')
+		return (parse_floor_color(start, config));
+	if (start[0] == 'C')
+		return (parse_ceiling_color(start, config));
 	return (0);
-}
-
-static int	init_game_members(t_game *game)
-{
-	ft_memset(&game->config, 0, sizeof(t_config));
-	ft_memset(&game->map, 0, sizeof(t_map));
-	ft_memset(&game->player, 0, sizeof(t_player));
-
-	game->mlx = NULL;
-	game->win = NULL;	
-	return (1);
 }
 
 static int	parse_line(char *line, t_game *game)
@@ -63,18 +58,20 @@ static int	parse_line(char *line, t_game *game)
 	char	*trimmed_line;
 	int		ret;
 
-	trimmed_line = ft_strtrim(line, " \n");
+	trimmed_line = ft_strtrim(line, "\n");
 	if (!trimmed_line)
 		return (0);
 	if (trimmed_line[0] == '\0')
 		return (free(trimmed_line), 1);
 	if (is_path(trimmed_line))
 		ret = parse_tex(trimmed_line, &game->config);
-	if (trimmed_line[0] == 'F' || trimmed_line[0] == 'C')
+	else if (ft_strchr(trimmed_line, 'F') || ft_strchr(trimmed_line, 'C'))
 		ret = parse_color(trimmed_line, &game->config);
-	if (has_config(&game->config))
+	else if (has_config(&game->config) && is_map(trimmed_line))
 		ret = parse_grid(line, &game->map);
-	free(trimmed_line);
+	else if (has_config(&game->config) && !is_map(trimmed_line))
+		ret = print_error_and_return("Invalid line in map\n", 0);
+	free(trimmed_line);	
 	return (ret);
 }
 
@@ -82,7 +79,6 @@ t_game	*parse_file(int fd, t_game *game)
 {
 	char		*line;
 	
-	init_game_members(game);
 	line = get_next_line(fd);
 	while (line)
 	{

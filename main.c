@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 20:47:23 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/13 15:05:36 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 13:56:24 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int main(int argc, char *argv[])
 	game = ft_calloc(1, sizeof(t_game));
 	if (!game)
 		return(print_error("Malloc failed\n"), 1);
+	if (!calculate_map_height(argv[1], game))
+		return (1);
+	printf("map height: %d\n", game->map.height);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (print_error_and_return("Open failed\n", 1));
