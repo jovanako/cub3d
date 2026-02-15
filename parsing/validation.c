@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 16:37:26 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 15:12:14 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 21:19:41 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	in_range(int n)
 	return (n >= 0 && n <= 255);
 }
 
-int	has_valid_chars(char *line)
+int	rgb_valid_chars(char *line)
 {
 	int	i;
 

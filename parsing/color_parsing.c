@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:20:13 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 20:21:42 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/15 21:19:55 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	parse_floor_color(char *line, t_config *config)
 	rgb = malloc(sizeof(t_rgb));
 	if (!rgb)
 		return (print_error_and_return("Malloc failed\n", 0));
-	if (!has_valid_chars(line))
+	if (!rgb_valid_chars(line))
 		return (rgb_cleanup(rgb));
 	if (!get_rgb_val(line, rgb))
 		return (rgb_cleanup(rgb));
@@ -40,7 +40,7 @@ int	parse_ceiling_color(char *line, t_config *config)
 	rgb = malloc(sizeof(t_rgb));
 	if (!rgb)
 		return (print_error_and_return("Malloc failed\n", 0));
-	if (!has_valid_chars(line))
+	if (!rgb_valid_chars(line))
 		return (rgb_cleanup(rgb));
 	if (!get_rgb_val(line, rgb))
 		return (rgb_cleanup(rgb));
