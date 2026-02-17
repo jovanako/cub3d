@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/10 20:21:28 by jkovacev          #+#    #+#              #
-#    Updated: 2026/02/17 10:37:53 by jkovacev         ###   ########.fr        #
+#    Updated: 2026/02/17 10:45:46 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ SRCS		= main.c \
 			  $(TEX_DIR)/tex_parsing.c \
 			  $(PARSE_DIR)/error_handling.c \
 			  $(PARSE_DIR)/game_cleanup.c \
-			  $(PARSE_DIR)/helpers.c \
+			  $(PARSE_DIR)/parse_helpers.c \
 			  $(PARSE_DIR)/map_validation.c \
 			  $(PARSE_DIR)/parsing.c \
 			  $(PARSE_DIR)/player.c \
