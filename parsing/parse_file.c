@@ -1,53 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 19:08:15 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 10:42:47 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:33:51 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-#include "tex.h"
+#include "parse.h"
 
-static int	is_path(char *s)
+static int	has_config(t_config *config)
 {
-	char	*start;
-
-	start = skip_leading_ws(s);
-	return (!ft_strncmp(start, "NO", 2) || !ft_strncmp(start, "SO", 2)
-		|| !ft_strncmp(start, "WE", 2) || !ft_strncmp(start, "EA", 2));
-}
-
-static int	parse_tex(char *line, t_config *config)
-{
-	char	*start;
-
-	start = skip_leading_ws(line);
-	if (!ft_strncmp(start, "NO", 2))
-		return (parse_north_tex(start, config));
-	if (!ft_strncmp(start, "SO", 2))
-		return (parse_south_tex(start, config));
-	if (!ft_strncmp(start, "WE", 2))
-		return (parse_west_tex(start, config));
-	if (!ft_strncmp(start, "EA", 2))
-		return (parse_east_tex(start, config));
+	if (config)
+	{
+		return (config->north.path && config->south.path
+				&& config->west.path && config->east.path
+				&& config->floor_color &&config->ceiling_color);
+	}
+	print_error("Texture values missing\n");
 	return (0);
 }
 
-static int	parse_color(char *line, t_config *config)
+static int	calculate_map_width(char **grid)
 {
-	char	*start;
+	int	i;
+	int	len;
+	int	width;
 
-	start = skip_leading_ws(line);
-	if (start[0] == 'F')
-		return (parse_floor_color(start, config));
-	if (start[0] == 'C')
-		return (parse_ceiling_color(start, config));
-	return (0);
+	i = 0;
+	len = 0;
+	width = 0;
+	if (!grid)
+		return (0);
+	while (grid[i])
+	{
+		len = (int)ft_strlen(grid[i]);
+		if (len > width)
+			width = len;
+		i++;
+	}
+	return (width);
 }
 
 static int	parse_line(char *line, t_game *game)

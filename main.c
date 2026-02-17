@@ -6,11 +6,11 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 20:47:23 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 22:49:40 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:33:36 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "parse.h"
 
 // void	print_config_elements(t_config *config)
 // {
@@ -40,6 +40,32 @@
 // 	printf("player dir x: %f\nplayer dir y: %f\n", game->player.dir_x, game->player.dir_y);
 // 	printf("player plane x: %f\nplayer plane y: %f\n", game->player.plane_x, game->player.plane_y);
 // }
+
+static int	calculate_map_height(char *arg, t_game *game)
+{
+	int		fd;
+	int		count;
+	char	*line;
+	
+	count = 0;
+	fd = open(arg, O_RDONLY);
+	if (fd == -1)
+		return (print_error_and_return("Open failed\n", 0));
+	line = get_next_line(fd);
+	while(line)
+	{
+		if (is_map(line))
+			count++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	game->map.height = count;
+	game->map.grid = ft_calloc((game->map.height + 1), sizeof(char *));
+	if (!game->map.grid)
+		return (print_error_and_return("Malloc failed\n", 0));
+	return (1);
+}
 
 int main(int argc, char *argv[])
 {

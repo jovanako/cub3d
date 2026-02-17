@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 09:28:25 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 10:35:09 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:35:01 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include "cub3d.h"
 #include "libft.h"
-#include "parsing.h"
+#include "parse.h"
 
 typedef struct s_rgb
 {
@@ -27,14 +27,14 @@ typedef struct s_rgb
 	int	b;
 }	t_rgb;
 
-// Tex parsing
-int		is_valid_path(char *s);
+// Parse tex
+char	*get_path(char *line);
 int		parse_north_tex(char *line, t_config *config);
 int		parse_south_tex(char *line, t_config *config);
 int		parse_west_tex(char *line, t_config *config);
 int		parse_east_tex(char *line, t_config *config);
 
-// Color parsing
+// Parse color
 int		get_rgb_val(char *line, t_rgb *rgb);
 int		parse_floor_color(char *line, t_config *config);
 int		parse_ceiling_color(char *line, t_config *config);

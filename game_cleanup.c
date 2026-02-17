@@ -6,11 +6,11 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 14:16:57 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 14:20:05 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:33:27 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "parse.h"
 #include "mlx.h"
 
 static void	cleanup_config(t_config *config)
