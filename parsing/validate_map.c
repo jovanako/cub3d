@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 20:32:01 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 11:34:17 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:42:19 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	map_valid_chars(t_map *map)
 	return (1);
 }
 
-int	map_validation(t_map *map)
+int	validate_map(t_map *map)
 {
 	if (!one_player_check(map))
 		return (0);

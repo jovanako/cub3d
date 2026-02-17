@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/09 19:00:46 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 11:38:18 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/17 11:42:37 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		print_error_and_return(char *error, int ret);
 int 	is_map(char *line);
 int		is_path(char *s);
 int		parse_grid(char *line, t_map *map);
-int		map_validation(t_map *map);
+int		validate_map(t_map *map);
 void	deep_free_game(t_game *game);
 void	set_player(t_game *game);
 #endif
