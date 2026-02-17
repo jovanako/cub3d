@@ -6,11 +6,20 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 20:32:01 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 22:05:40 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/17 10:05:13 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+static void	print_invalid_char(char c)
+{
+	print_error("Invalid map character: ");
+	ft_putchar_fd('\'', 2);
+	ft_putchar_fd(c, 2);
+	ft_putchar_fd('\'', 2);
+	write(2, "\n", 1);
+}
 
 static int	one_player_check(t_map *map)
 {

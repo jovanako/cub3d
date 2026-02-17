@@ -1,50 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   clean_up.c                                         :+:      :+:    :+:   */
+/*   tex_helpers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/12 19:48:43 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 14:17:12 by jkovacev         ###   ########.fr       */
+/*   Created: 2026/02/17 09:27:32 by jkovacev          #+#    #+#             */
+/*   Updated: 2026/02/17 09:57:56 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-#include "mlx.h"
+#include "tex.h"
 
-int	rgb_cleanup(t_rgb *rgb)
+int	is_valid_path(char *s)
 {
-	if (rgb)
-		free(rgb);
-	return (0);
+	int	fd;
+
+	fd = open(s, O_RDONLY);
+	if (fd == -1)
+		return (0);
+	close(fd);
+	return (1);
 }
 
-void	free_config(t_config *config)
-{
-	if (!config)
-		return ;
-	free(config->north.path);
-	free(config->south.path);
-	free(config->west.path);
-	free(config->east.path);
-	free(config);
-}
-
-void	free_map(t_map *map)
+void	rgb_arr_cleanup(char **rgb_arr)
 {
 	int	i;
 
 	i = 0;
-	if (!map)
+	if (!rgb_arr)
 		return ;
-	if (!map->grid)
-		return ;
-	while (map->grid[i])
+	while (rgb_arr[i])
 	{
-		free(map->grid[i]);
+		free(rgb_arr[i]);
 		i++;
 	}
-	free(map->grid);
-	free(map);
+	free(rgb_arr);
+}
+
+int	clean_and_return(char **rgb_arr)
+{
+	rgb_arr_cleanup(rgb_arr);
+	return(print_error_and_return("Invalid input for color\n", 0));
 }

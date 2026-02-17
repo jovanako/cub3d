@@ -6,11 +6,41 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:20:13 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 21:19:55 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/17 09:40:00 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "tex.h"
+
+static int	rgb_cleanup(t_rgb *rgb)
+{
+	if (rgb)
+		free(rgb);
+	return (0);
+}
+
+static int	in_range(int n)
+{
+	return (n >= 0 && n <= 255);
+}
+
+static int	rgb_valid_chars(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != 'F' && line[i] != 'C' && line[i] != ' '
+			&& line[i] != ',' && !ft_isdigit(line[i]))
+		{
+			print_error("Invalid input for color\n");	
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 
 int	parse_floor_color(char *line, t_config *config)
 {

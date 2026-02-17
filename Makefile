@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/10 20:21:28 by jkovacev          #+#    #+#              #
-#    Updated: 2026/02/15 22:25:38 by jkovacev         ###   ########.fr        #
+#    Updated: 2026/02/17 10:37:53 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,10 @@ LIBFT_DIR	= libft
 MLX_DIR		= mlx_linux
 GNL_DIR		= get_next_line
 PARSE_DIR	= parsing
+TEX_DIR		= parsing/tex_parsing/
 OBJ_DIR		= obj
 
-INCLUDES	= -I. -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(GNL_DIR) -I$(PARSE_DIR)
+INCLUDES	= -I. -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(GNL_DIR) -I$(PARSE_DIR) -I$(TEX_DIR)
 
 LIBFT		= $(LIBFT_DIR)/libft.a
 MLX			= $(MLX_DIR)/libmlx.a
@@ -33,19 +34,17 @@ MLX			= $(MLX_DIR)/libmlx.a
 SRCS		= main.c \
 			  $(GNL_DIR)/get_next_line.c \
 			  $(GNL_DIR)/get_next_line_utils.c \
+			  $(TEX_DIR)/color_parsing.c \
+			  $(TEX_DIR)/rgb_parsing.c \
+			  $(TEX_DIR)/tex_helpers.c \
+			  $(TEX_DIR)/tex_parsing.c \
 			  $(PARSE_DIR)/error_handling.c \
-			  $(PARSE_DIR)/parsing.c \
-			  $(PARSE_DIR)/path_parsing.c \
-			  $(PARSE_DIR)/tex_parsing.c \
-			  $(PARSE_DIR)/color_parsing.c \
-			  $(PARSE_DIR)/rgb_parsing.c \
-			  $(PARSE_DIR)/map_parsing.c \
-			  $(PARSE_DIR)/map_helpers.c \
-			  $(PARSE_DIR)/map_validation.c \
-			  $(PARSE_DIR)/validation.c \
-			  $(PARSE_DIR)/player.c \
 			  $(PARSE_DIR)/game_cleanup.c \
-			  $(PARSE_DIR)/clean_up.c
+			  $(PARSE_DIR)/helpers.c \
+			  $(PARSE_DIR)/map_validation.c \
+			  $(PARSE_DIR)/parsing.c \
+			  $(PARSE_DIR)/player.c \
+			  $(PARSE_DIR)/validation_helpers.c
 
 OBJS		= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 

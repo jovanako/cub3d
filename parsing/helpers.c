@@ -1,16 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parsing.c                                      :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/13 10:17:14 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 20:20:56 by jkovacev         ###   ########.fr       */
+/*   Created: 2026/02/12 16:37:26 by jkovacev          #+#    #+#             */
+/*   Updated: 2026/02/17 10:42:17 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+
+static int	count_current_height(char **grid)
+{
+	int	count;
+
+	count = 0;
+	while (grid[count])
+		count++;
+	return count;
+}
+
+int	parse_grid(char *line, t_map *map)
+{
+	int		row;
+	char	*clean_line;
+
+	row = count_current_height(map->grid);
+	clean_line = ft_strtrim(line, "\n");
+	if (!clean_line)
+		return (0);
+	map->grid[row] = clean_line;
+	return (1);
+}
+
+char	*skip_leading_ws(char *s)
+{
+	while (*s == ' ')
+		s++;
+	return (s);
+}
 
 int	calculate_map_height(char *arg, t_game *game)
 {
@@ -57,27 +87,4 @@ int	calculate_map_width(char **grid)
 		i++;
 	}
 	return (width);
-}
-
-static int	count_current_height(char **grid)
-{
-	int	count;
-
-	count = 0;
-	while (grid[count])
-		count++;
-	return count;
-}
-
-int	parse_grid(char *line, t_map *map)
-{
-	int		row;
-	char	*clean_line;
-
-	row = count_current_height(map->grid);
-	clean_line = ft_strtrim(line, "\n");
-	if (!clean_line)
-		return (0);
-	map->grid[row] = clean_line;
-	return (1);
 }

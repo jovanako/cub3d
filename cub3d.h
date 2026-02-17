@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 14:37:40 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/10 22:05:42 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/17 10:43:41 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,6 @@ typedef struct s_texture
 	int		height;
 }	t_texture;
 
-/***
- * floor_color and ceiling_color represent rgb values, packed in an int as
- * 0x00RRGGBB since MLX expects it in this format
- */
 typedef struct s_config
 {
 	t_texture	north;
@@ -35,12 +31,7 @@ typedef struct s_config
 	int			floor_color;
 	int			ceiling_color;
 }	t_config;
-
-/***
- * x, y - player position
- * dir_x, dir_y - looking direction
- * plane_x, plane_y - field of view
- */	
+	
 typedef struct s_player
 {
 	double	x;

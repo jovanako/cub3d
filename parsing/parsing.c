@@ -6,12 +6,21 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 19:08:15 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/15 22:06:11 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/17 10:42:47 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include "cub3d.h"
+#include "tex.h"
+
+static int	is_path(char *s)
+{
+	char	*start;
+
+	start = skip_leading_ws(s);
+	return (!ft_strncmp(start, "NO", 2) || !ft_strncmp(start, "SO", 2)
+		|| !ft_strncmp(start, "WE", 2) || !ft_strncmp(start, "EA", 2));
+}
 
 static int	parse_tex(char *line, t_config *config)
 {
