@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 20:32:01 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/21 13:47:54 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/21 15:24:26 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	map_valid_chars(t_map *map)
 	return (1);
 }
 
-static char	**copy_grid(t_map *map, char **grid_copy)
+static bool	copy_grid(t_map *map, char **grid_copy)
 {
 	int	i;
 
@@ -74,28 +74,24 @@ static char	**copy_grid(t_map *map, char **grid_copy)
 		if (!grid_copy[i])
 		{
 			clean_up_grid_copy(grid_copy);
-			return (print_error("Malloc failed\n"), NULL);
+			return (print_error("Malloc failed\n"), false);
 		}
 		i++;
 	}
-	return (grid_copy);
+	return (true);
 }
 
 static bool	map_closure_check(t_map *map, int y, int x, char **grid_copy)
 {
-	// printf("checking y: %d, x: %d\n", y, x);
 	if (y < 0 || x < 0 || y > map->height - 1
-		|| x > map->width - 1 || grid_copy[y][x] == ' ' )
+		|| x > map->width - 1 || grid_copy[y][x] == ' ' 
+		|| grid_copy[y][x] == '\0')
 	{
-		// printf("error found - y: %d, x: %d\n", y, x);
 		print_error("Invalid map\n");
 		return (false);	
 	}
 	if (grid_copy[y][x] == 'x' || grid_copy[y][x] == '1')
-	{
-		// printf("found wall or x - y: %d, x: %d\n", y, x);
 		return (true);
-	}
 	grid_copy[y][x] = 'x';
 	return (map_closure_check(map, y, x + 1, grid_copy)
 			&& map_closure_check(map, y, x - 1, grid_copy)
@@ -114,7 +110,9 @@ int	validate_map(t_map *map, t_player *player)
 	grid_copy = ft_calloc((map->height + 1), sizeof(char *));
 	if (!grid_copy)
 		return (print_error_and_return("Malloc failed\n", 0));
-	grid_copy = copy_grid(map, grid_copy);
+	copy_grid(map, grid_copy);
+	if (!grid_copy)
+		return (0);
 	if (!one_player_check(map))
 		return (clean_up_grid_copy(grid_copy), 0);
 	if (!map_valid_chars(map))
