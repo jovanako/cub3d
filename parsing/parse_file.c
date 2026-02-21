@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 19:08:15 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 11:42:44 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/20 21:40:34 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ t_game	*parse_file(int fd, t_game *game)
 		line = get_next_line(fd);
 	}
 	game->map.width = calculate_map_width(game->map.grid);
-	if (!validate_map(&game->map))
+	set_player(game);
+	if (!validate_map(&game->map, &game->player))
 		return (NULL);
 	return (game);
 }

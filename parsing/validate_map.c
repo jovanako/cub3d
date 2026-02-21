@@ -6,20 +6,11 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 20:32:01 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 11:42:19 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/21 13:47:54 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
-
-static void	print_invalid_char(char c)
-{
-	print_error("Invalid map character: ");
-	ft_putchar_fd('\'', 2);
-	ft_putchar_fd(c, 2);
-	ft_putchar_fd('\'', 2);
-	write(2, "\n", 1);
-}
 
 static int	one_player_check(t_map *map)
 {
@@ -72,11 +63,64 @@ static int	map_valid_chars(t_map *map)
 	return (1);
 }
 
-int	validate_map(t_map *map)
+static char	**copy_grid(t_map *map, char **grid_copy)
 {
+	int	i;
+
+	i = 0;
+	while (i < map->height)
+	{
+		grid_copy[i] = ft_strdup(map->grid[i]);
+		if (!grid_copy[i])
+		{
+			clean_up_grid_copy(grid_copy);
+			return (print_error("Malloc failed\n"), NULL);
+		}
+		i++;
+	}
+	return (grid_copy);
+}
+
+static bool	map_closure_check(t_map *map, int y, int x, char **grid_copy)
+{
+	// printf("checking y: %d, x: %d\n", y, x);
+	if (y < 0 || x < 0 || y > map->height - 1
+		|| x > map->width - 1 || grid_copy[y][x] == ' ' )
+	{
+		// printf("error found - y: %d, x: %d\n", y, x);
+		print_error("Invalid map\n");
+		return (false);	
+	}
+	if (grid_copy[y][x] == 'x' || grid_copy[y][x] == '1')
+	{
+		// printf("found wall or x - y: %d, x: %d\n", y, x);
+		return (true);
+	}
+	grid_copy[y][x] = 'x';
+	return (map_closure_check(map, y, x + 1, grid_copy)
+			&& map_closure_check(map, y, x - 1, grid_copy)
+			&& map_closure_check(map, y + 1, x, grid_copy)
+			&& map_closure_check(map, y - 1, x, grid_copy));
+}
+
+int	validate_map(t_map *map, t_player *player)
+{
+	char	**grid_copy;
+	int		x;
+	int		y;
+
+	x = (int)(player->x - 0.5);
+	y = (int)(player->y - 0.5);
+	grid_copy = ft_calloc((map->height + 1), sizeof(char *));
+	if (!grid_copy)
+		return (print_error_and_return("Malloc failed\n", 0));
+	grid_copy = copy_grid(map, grid_copy);
 	if (!one_player_check(map))
-		return (0);
+		return (clean_up_grid_copy(grid_copy), 0);
 	if (!map_valid_chars(map))
-		return (0);
+		return (clean_up_grid_copy(grid_copy), 0);
+	if (!map_closure_check(map, y, x, grid_copy))
+		return (clean_up_grid_copy(grid_copy), 0);
+	clean_up_grid_copy(grid_copy);
 	return (1);
 }

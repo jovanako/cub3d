@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/10 20:47:23 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 11:33:36 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/20 21:40:29 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int main(int argc, char *argv[])
 		close(fd);
 		return (1);
 	}
-	set_player(game);
 	// print_game(game);
 	close(fd);
 	deep_free_game(game);

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/21 16:47:37 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/12 20:40:46 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/21 13:37:00 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*copy_string(char *dst, const char *src, size_t size)
 	size_t	i;
 
 	i = 0;
-	if (i < size)
+	while (i < size)
 	{
 		dst[i] = src[i];
 		i++;
@@ -32,7 +32,7 @@ char	*ft_strdup(const char *s)
 	size_t	s_len;
 
 	s_len = ft_strlen(s);
-	dup = (char *)malloc(s_len * sizeof(char) + 1);
+	dup = (char *)malloc((s_len + 1) * sizeof(char));
 	if (dup)
 	{
 		dup = copy_string(dup, s, s_len);

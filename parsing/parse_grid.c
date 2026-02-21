@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 11:14:02 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 11:33:56 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/02/20 20:46:24 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,3 +35,17 @@ int	parse_grid(char *line, t_map *map)
 	return (1);
 }
 
+void	clean_up_grid_copy(char **grid_copy)
+{
+	int	i;
+
+	i = 0;
+	if (!grid_copy)
+		return ;
+	while (grid_copy[i])
+	{
+		free(grid_copy[i]);
+		i++;
+	}
+	free(grid_copy);
+}
