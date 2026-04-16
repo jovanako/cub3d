@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_player.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/15 22:24:55 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 11:34:11 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/04/16 19:19:45 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	set_player(t_game *game)
 				game->player.y = (double)y + 0.5;
 				set_player_dir(&game->player, game->map.grid[y][x]);
 				game->player.plane_x = -game->player.dir_y
-				* tan((FOV * PI / 180.0) / 2.0);
+					* tan((FOV * PI / 180.0) / 2.0);
 				game->player.plane_y = game->player.dir_x
-				* tan((FOV * PI / 180.0) / 2.0);
+					* tan((FOV * PI / 180.0) / 2.0);
 				return ;
 			}
 			x++;

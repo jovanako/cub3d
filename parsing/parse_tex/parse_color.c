@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:20:13 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 11:29:53 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/04/16 19:34:53 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,13 @@ static int	rgb_valid_chars(char *line)
 			return (0);
 		}
 		i++;
+	}
+	if (check_double_rgbchar(line, 'F')
+		|| check_double_rgbchar(line, 'C')
+		|| check_double_rgbchar(line, ','))
+	{
+		print_error("Invalid input for color\n");
+		return (0);
 	}
 	return (1);
 }
