@@ -3,89 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 19:08:15 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/20 21:40:34 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/04/16 16:58:08 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
-static int	has_config(t_config *config)
+static int	parse_content_line(char *trimmed_line, char *line, t_game *game,
+		t_parse_state *state)
 {
-	if (config)
-	{
-		return (config->north.path && config->south.path
-				&& config->west.path && config->east.path
-				&& config->floor_color &&config->ceiling_color);
-	}
-	print_error("Texture values missing\n");
-	return (0);
+	if (state->map_ended)
+		return (print_error_and_return("Map must be the last element\n", 0));
+	if (is_path(trimmed_line))
+		return (parse_tex(trimmed_line, &game->config));
+	if (ft_strchr(trimmed_line, 'F') || ft_strchr(trimmed_line, 'C'))
+		return (parse_color(trimmed_line, &game->config));
+	return (parse_map_line(trimmed_line, line, game, state));
 }
 
-static int	calculate_map_width(char **grid)
+static int	parse_line(char *line, t_game *game, t_parse_state *state)
 {
-	int	i;
-	int	len;
-	int	width;
-
-	i = 0;
-	len = 0;
-	width = 0;
-	if (!grid)
-		return (0);
-	while (grid[i])
-	{
-		len = (int)ft_strlen(grid[i]);
-		if (len > width)
-			width = len;
-		i++;
-	}
-	return (width);
-}
-
-static int	parse_line(char *line, t_game *game)
-{	
 	char	*trimmed_line;
 	int		ret;
 
 	trimmed_line = ft_strtrim(line, "\n");
 	if (!trimmed_line)
 		return (0);
-	if (trimmed_line[0] == '\0')
-		return (free(trimmed_line), 1);
-	if (is_path(trimmed_line))
-		ret = parse_tex(trimmed_line, &game->config);
-	else if (ft_strchr(trimmed_line, 'F') || ft_strchr(trimmed_line, 'C'))
-		ret = parse_color(trimmed_line, &game->config);
-	else if (has_config(&game->config) && is_map(trimmed_line))
-		ret = parse_grid(line, &game->map);
-	else if (has_config(&game->config) && !is_map(trimmed_line))
-		ret = print_error_and_return("Invalid line in map\n", 0);
-	free(trimmed_line);	
+	ret = parse_empty_line(trimmed_line, state);
+	if (ret != -1)
+		return (ret);
+	ret = parse_content_line(trimmed_line, line, game, state);
+	free(trimmed_line);
 	return (ret);
 }
 
-t_game	*parse_file(int fd, t_game *game)
+static int	read_file_lines(int fd, t_game *game)
 {
-	char		*line;
-	
+	char			*line;
+	t_parse_state	state;
+
+	state.map_started = 0;
+	state.map_ended = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (!parse_line(line, game))
+		if (!parse_line(line, game, &state))
 		{
-			free(line);
-			deep_free_game(game);
-			return (NULL);
+			while (line)
+			{
+				free(line);
+				line = get_next_line(fd);
+			}
+			return (0);
 		}
 		free(line);
 		line = get_next_line(fd);
 	}
+	return (1);
+}
+
+static int	finalize_game(t_game *game)
+{
 	game->map.width = calculate_map_width(game->map.grid);
+	if (!normalize_map(&game->map))
+		return (0);
 	set_player(game);
 	if (!validate_map(&game->map, &game->player))
+		return (0);
+	return (1);
+}
+
+t_game	*parse_file(int fd, t_game *game)
+{
+	if (!read_file_lines(fd, game) || !finalize_game(game))
+	{
+		deep_free_game(game);
 		return (NULL);
+	}
 	return (game);
 }

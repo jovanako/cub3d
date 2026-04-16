@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: asalniko <asalniko@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/10 20:21:28 by jkovacev          #+#    #+#              #
-#    Updated: 2026/02/17 11:37:04 by jkovacev         ###   ########.fr        #
+#    Updated: 2026/04/14 18:27:28 by asalniko         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,25 +14,32 @@ GREEN = \033[0;32m
 BLUE  = \033[0;34m
 RESET = \033[0m
 
-NAME		= cub3d
-CC			= gcc
+NAME		= cub3D
+CC			= cc
 CFLAGS		= -g -Wall -Wextra -Werror
-MLX_FLAGS	= -L$(MLX_DIR) -lmlx -L/usr/lib -Imlx -lXext -lX11 -lm -lz
 
 LIBFT_DIR	= libft
-MLX_DIR		= mlx_linux
 GNL_DIR		= get_next_line
 PARSE_DIR	= parsing
-TEX_DIR		= parsing/parse_tex/
+TEX_DIR		= parsing/parse_tex
 OBJ_DIR		= obj
+MLX_DIR		= minilibx-linux
+MLX			= $(MLX_DIR)/libmlx.a
+MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 INCLUDES	= -I. -I$(LIBFT_DIR) -I$(MLX_DIR) -I$(GNL_DIR) -I$(PARSE_DIR) -I$(TEX_DIR)
 
 LIBFT		= $(LIBFT_DIR)/libft.a
-MLX			= $(MLX_DIR)/libmlx.a
 
 SRCS		= main.c \
 			  game_cleanup.c \
+			  game_init.c \
+			  game_init2.c \
+			  render_background.c \
+			  init_ray.c \
+			  init_ray2.c \
+			  utils.c \
+			  textures.c \
 			  $(GNL_DIR)/get_next_line.c \
 			  $(GNL_DIR)/get_next_line_utils.c \
 			  $(TEX_DIR)/parse_color.c \
@@ -42,6 +49,7 @@ SRCS		= main.c \
 			  $(TEX_DIR)/rgb_cleanup.c \
 			  $(PARSE_DIR)/handle_errors.c \
 			  $(PARSE_DIR)/parse_file.c \
+			  $(PARSE_DIR)/parse_file2.c \
 			  $(PARSE_DIR)/parse_grid.c \
 			  $(PARSE_DIR)/parse_line.c \
 			  $(PARSE_DIR)/set_player.c \
@@ -69,7 +77,7 @@ $(OBJ_DIR)/%.o: %.c
 		@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-		@echo "$(BLUE)Cleaning cub3d objects...$(RESET)"
+		@echo "$(BLUE)Cleaning cub3D objects...$(RESET)"
 		@rm -rf $(OBJ_DIR)
 		@make clean -C $(LIBFT_DIR) --no-print-directory
 		@make clean -C $(MLX_DIR) --no-print-directory
@@ -77,9 +85,13 @@ clean:
 fclean:
 		@echo "$(BLUE)Deep cleaning project...$(RESET)"
 		@rm -rf $(OBJ_DIR)
-		@rm -f $(NAME)
+		@rm -f $(NAME) cub3d
 		@make fclean -C $(LIBFT_DIR) --no-print-directory
+		@make clean -C $(MLX_DIR) --no-print-directory
+		@rm -f $(MLX)
 
 re: fclean all
+
+bonus: all
 
 .PHONY: all clean fclean re bonus

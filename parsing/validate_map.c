@@ -30,9 +30,11 @@ static int	one_player_check(t_map *map)
 				count++;
 			j++;
 		}
-		i++;		
+		i++;
 	}
-	if (count != 1)
+	if (count == 0)
+		return (print_error_and_return("Map has no player\n", 0));
+	if (count > 1)
 		return (print_error_and_return("Map has more than one player\n", 0));
 	return (1);
 }
@@ -54,11 +56,11 @@ static int	map_valid_chars(t_map *map)
 				&& map->grid[i][j] != 'W')
 			{
 				print_invalid_char(map->grid[i][j]);
-				return (0);				
+				return (0);
 			}
 			j++;
 		}
-		i++;		
+		i++;
 	}
 	return (1);
 }
@@ -88,15 +90,15 @@ static bool	map_closure_check(t_map *map, int y, int x, char **grid_copy)
 		|| grid_copy[y][x] == '\0')
 	{
 		print_error("Invalid map\n");
-		return (false);	
+		return (false);
 	}
 	if (grid_copy[y][x] == 'x' || grid_copy[y][x] == '1')
 		return (true);
 	grid_copy[y][x] = 'x';
 	return (map_closure_check(map, y, x + 1, grid_copy)
-			&& map_closure_check(map, y, x - 1, grid_copy)
-			&& map_closure_check(map, y + 1, x, grid_copy)
-			&& map_closure_check(map, y - 1, x, grid_copy));
+		&& map_closure_check(map, y, x - 1, grid_copy)
+		&& map_closure_check(map, y + 1, x, grid_copy)
+		&& map_closure_check(map, y - 1, x, grid_copy));
 }
 
 int	validate_map(t_map *map, t_player *player)
@@ -110,8 +112,7 @@ int	validate_map(t_map *map, t_player *player)
 	grid_copy = ft_calloc((map->height + 1), sizeof(char *));
 	if (!grid_copy)
 		return (print_error_and_return("Malloc failed\n", 0));
-	copy_grid(map, grid_copy);
-	if (!grid_copy)
+	if (!copy_grid(map, grid_copy))
 		return (0);
 	if (!one_player_check(map))
 		return (clean_up_grid_copy(grid_copy), 0);

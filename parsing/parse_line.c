@@ -22,7 +22,7 @@ int	is_path(char *s)
 		|| !ft_strncmp(start, "WE", 2) || !ft_strncmp(start, "EA", 2));
 }
 
-int is_map(char *line)
+int	is_map(char *line)
 {
 	int		i;
 
@@ -66,6 +66,7 @@ int	parse_tex(char *line, t_config *config)
 		return (parse_east_tex(start, config));
 	return (0);
 }
+
 int	parse_color(char *line, t_config *config)
 {
 	char	*start;

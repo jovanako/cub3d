@@ -13,12 +13,12 @@
 #ifndef TEX_H
 # define TEX_H
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include "cub3d.h"
-#include "libft.h"
-#include "parse.h"
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include "cub3d.h"
+# include "libft.h"
+# include "parse.h"
 
 typedef struct s_rgb
 {

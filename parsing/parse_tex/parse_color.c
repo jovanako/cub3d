@@ -34,7 +34,7 @@ static int	rgb_valid_chars(char *line)
 		if (line[i] != 'F' && line[i] != 'C' && line[i] != ' '
 			&& line[i] != ',' && !ft_isdigit(line[i]))
 		{
-			print_error("Invalid input for color\n");	
+			print_error("Invalid input for color\n");
 			return (0);
 		}
 		i++;
@@ -46,6 +46,8 @@ int	parse_floor_color(char *line, t_config *config)
 {
 	t_rgb	*rgb;
 
+	if (config->floor_set)
+		return (print_error_and_return("Duplicate floor color\n", 0));
 	rgb = malloc(sizeof(t_rgb));
 	if (!rgb)
 		return (print_error_and_return("Malloc failed\n", 0));
@@ -59,6 +61,7 @@ int	parse_floor_color(char *line, t_config *config)
 		return (rgb_cleanup(rgb));
 	}
 	config->floor_color = (rgb->r << 16) | (rgb->g << 8) | rgb->b;
+	config->floor_set = 1;
 	free(rgb);
 	return (1);
 }
@@ -67,6 +70,8 @@ int	parse_ceiling_color(char *line, t_config *config)
 {
 	t_rgb	*rgb;
 
+	if (config->ceiling_set)
+		return (print_error_and_return("Duplicate ceiling color\n", 0));
 	rgb = malloc(sizeof(t_rgb));
 	if (!rgb)
 		return (print_error_and_return("Malloc failed\n", 0));
@@ -80,6 +85,7 @@ int	parse_ceiling_color(char *line, t_config *config)
 		return (rgb_cleanup(rgb));
 	}
 	config->ceiling_color = (rgb->r << 16) | (rgb->g << 8) | rgb->b;
+	config->ceiling_set = 1;
 	free(rgb);
 	return (1);
 }

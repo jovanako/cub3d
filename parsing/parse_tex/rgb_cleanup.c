@@ -30,5 +30,5 @@ void	rgb_arr_cleanup(char **rgb_arr)
 int	clean_and_return(char **rgb_arr)
 {
 	rgb_arr_cleanup(rgb_arr);
-	return(print_error_and_return("Invalid input for color\n", 0));
+	return (print_error_and_return("Invalid input for color\n", 0));
 }

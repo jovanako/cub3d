@@ -19,7 +19,7 @@ static int	count_current_height(char **grid)
 	count = 0;
 	while (grid[count])
 		count++;
-	return count;
+	return (count);
 }
 
 int	parse_grid(char *line, t_map *map)

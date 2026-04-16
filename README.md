@@ -11,12 +11,12 @@ _This project has been created as part of the 42 curriculum by jkovacev and asal
 ## Compilation
 
 - To compile the project, run the following command in the root directory: ```make```
-- This will generate the ```cub3d``` executable.
+- This will generate the ```cub3D``` executable.
 
 ## Installation and/or Execution
 
 - To run the program, provide a map file as an argument:
-	```./cub3d maps/map.cub```
+	```./cub3D maps/map.cub```
 
 # Resources
 
