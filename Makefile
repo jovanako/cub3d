@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asalniko <asalniko@student.42.fr>          +#+  +:+       +#+         #
+#    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/10 20:21:28 by jkovacev          #+#    #+#              #
-#    Updated: 2026/04/14 18:27:28 by asalniko         ###   ########.fr        #
+#    Updated: 2026/04/16 22:23:51 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS		= main.c \
 			  $(TEX_DIR)/parse_rgb.c \
 			  $(TEX_DIR)/parse_tex.c \
 			  $(TEX_DIR)/rgb_cleanup.c \
+			  $(TEX_DIR)/rgb_utils.c \
 			  $(PARSE_DIR)/handle_errors.c \
 			  $(PARSE_DIR)/parse_file.c \
 			  $(PARSE_DIR)/parse_file2.c \

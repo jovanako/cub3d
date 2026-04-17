@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/08 14:37:40 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/04/16 19:27:47 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/04/16 22:22:53 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ int			render_loop(t_game *game);
 int			load_textures(t_game *game);
 t_texture	*get_wall_texture(t_game *game, t_ray *ray);
 int			validate_args(int argc, char *path);
-int			check_double_rgbchar(char *line, char c);
 
 void		calculate_wall_x(t_game *game, t_ray *ray);
 void		calculate_tex_x(t_texture *tex, t_ray *ray);

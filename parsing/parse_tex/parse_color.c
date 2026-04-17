@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/12 10:20:13 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/04/16 19:34:53 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/04/17 09:49:11 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,31 @@ static int	in_range(int n)
 {
 	return (n >= 0 && n <= 255);
 }
-
 static int	rgb_valid_chars(char *line)
 {
 	int	i;
 
 	i = 0;
-	while (line[i])
-	{
-		if (line[i] != 'F' && line[i] != 'C' && line[i] != ' '
-			&& line[i] != ',' && !ft_isdigit(line[i]))
-		{
-			print_error("Invalid input for color\n");
-			return (0);
-		}
-		i++;
-	}
-	if (check_double_rgbchar(line, 'F')
-		|| check_double_rgbchar(line, 'C')
-		|| check_double_rgbchar(line, ','))
-	{
-		print_error("Invalid input for color\n");
+	i = skip_color_identifier(line, i);
+	if (!i)
 		return (0);
-	}
+	i = skip_rgb_num(line, i);
+	if (!i)
+		return (0);
+	i = skip_comma(line, i);
+	if (!i)
+		return (0);
+	i = skip_rgb_num(line, i);
+	if (!i)
+		return (0);
+	i = skip_comma(line, i);
+	if (!i)
+		return (0);
+	i = skip_rgb_num(line, i);
+	if (!i)
+		return (0);
+	if (line[i])
+		return (0);
 	return (1);
 }
 

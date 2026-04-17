@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 09:28:25 by jkovacev          #+#    #+#             */
-/*   Updated: 2026/02/17 11:35:01 by jkovacev         ###   ########.fr       */
+/*   Updated: 2026/04/17 09:48:52 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,8 @@ int		parse_floor_color(char *line, t_config *config);
 int		parse_ceiling_color(char *line, t_config *config);
 void	rgb_arr_cleanup(char **rgb_arr);
 int		clean_and_return(char **rgb_arr);
+int		skip_whitespace(char *line, int i);
+int		skip_color_identifier(char *line, int i);
+int		skip_rgb_num(char *line, int i);
+int		skip_comma(char *line, int i);
 #endif
